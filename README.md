@@ -2,10 +2,32 @@
 
 ## Książka kontaktów
 
-Wykonaj refaktor kodu aplikacji "Książka telefoniczna". Usuń kod odpowiadający za przechowywanie i czytanie kontaktów z lokalnego magazynu i dodaj pracę z backendem do zapisywania kontaktów.
+Dodaj w aplikacji "Książka kontaktów" możliwość rejestracji, logowania i aktualizacji użytkownika, a także pracy z prywatnym zbiorem kontaktów.
 
-Stwórz backend dla projektu przy pomocy serwisu UI [mockapi.io](https://mockapi.io/). Zarejestruj się, wykorzystując swoje konto na GitHub.
+### Back-end
 
-Stwórz zasób contacts, aby otrzymać endpoint /contacts. Wykorzystaj konstruktor zasobów i opisz obiekt kontaktu jak na ilustracji.
+Do tego zadania istnieje gotowy back-end. Zapoznaj się z [dokumentacją](https://connections-api.goit.global/docs/). Wspiera wszystkie niezbędne operacje z listy kontaktów oraz rejestrację, logowanie i aktualizację użytkownika przy pomocy JWT. Wykorzystaj go zamiast twojego back-endu utworzonego przez serwis `mockapi.io`.
 
-Wykorzystaj funkcję [createAsyncThunk](https://redux-toolkit.js.org/api/createAsyncThunk) do współpracy z backendem i asynchronicznymi zapytaniami.
+### Trasowanie
+
+Dodaj trasowanie z biblioteką React Router. W aplikacji powinno być kilka stron:
+
+* `/register` - publiczna trasa rejestracji nowego użytkownika z formularzem
+* `/login` - publiczna trasa logowania istniejącego użytkownika z formularzem
+* `/contacts` - prywatna trasa do pracy z listą kontaktów użytkownika
+Dodaj komponent nawigacji `Navigation` z odnośnikami do przechodzenia po trasach.
+
+### Menu użytkownika
+
+Utwórz komponent `UserMenu`, wyświetlający adres email użytkownika i przycisk wyjścia z konta. Jego układ może wyglądać następująco:
+
+```
+<div>
+  <p>mango@mail.com</p>
+  <button>Logout</button>
+</div>
+```
+
+### Stylizacja
+
+To finalna wersja aplikacji, dlatego popracuj nad szatą graficzną interfejsu. Można wykorzystać bibliotekę stylizacji lub komponentów, na przykład [Chakra UI](https://chakra-ui.com/) lub [Material UI](https://mui.com/).
