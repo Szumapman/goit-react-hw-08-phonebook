@@ -1,5 +1,5 @@
 {
-  "name": "goit-react-hw-07-phonebook",
+  "name": "goit-react-hw-08-phonebook",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,13 +11,14 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://szumapman.github.io/goit-react-hw-07-phonebook/",
+  "homepage": "https://szumapman.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
     "@reduxjs/toolkit": "^2.6.0",
     "axios": "^1.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
