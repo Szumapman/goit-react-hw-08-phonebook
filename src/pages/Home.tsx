@@ -1,6 +1,9 @@
 const Home = () => {
     return (
-        <h1>Phonebook</h1>
+        <>
+            <title>Home</title>
+            <h1>Phonebook</h1>
+        </>
     );
 };
 
