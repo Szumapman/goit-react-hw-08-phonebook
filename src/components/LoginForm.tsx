@@ -5,12 +5,11 @@ import { Button, Card, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useAuth from "@/hooks/useAuth";
+
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useAuth();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
@@ -22,9 +21,9 @@ const LoginForm = () => {
 
         const credentials: LoginCredentials = { email, password };
 
-        await (dispatch as any)(logIn(credentials));
+        const result =await (dispatch as any)(logIn(credentials));
 
-        if (!user.email) {
+        if (!result.email) {
             setErrorMessage("Wrong email or password. Please try again.");
             return;
         }
