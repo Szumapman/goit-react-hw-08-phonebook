@@ -20,6 +20,7 @@ const LoginForm = () => {
 
         (dispatch as any)(logIn(credentials));
         event.currentTarget.reset();
+        navigate("/contacts");
     };
     
     return (
