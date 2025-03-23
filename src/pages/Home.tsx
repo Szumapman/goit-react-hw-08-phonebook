@@ -1,7 +1,6 @@
 import Logout from "@/components/NavComponents/Logout";
 import useAuth from "../hooks/useAuth";
 import { Flex, Heading, HStack, Link, Text } from "@chakra-ui/react"
-import { GrLogout } from "react-icons/gr";
 import { MdOutlineContacts } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
