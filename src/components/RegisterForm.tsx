@@ -6,12 +6,11 @@ import { PasswordInput, PasswordStrengthMeter } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import zxcvbn from "zxcvbn";
-import useAuth from "@/hooks/useAuth";
+
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useAuth(); 
     const [password, setPassword] = useState<string>("");
     const [passwordValueStrength, setPasswordValueStrength] = useState<number>(0);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -29,8 +28,8 @@ const RegisterForm = () => {
         const email = formData.get("email") as string;
         
         const credentials: RegisterCredentials = { name, email, password };
-        await(dispatch as any)(register(credentials));
-        if (!user.email) {
+        const result = await(dispatch as any)(register(credentials));
+        if (!result.email) {
             setErrorMessage("Registration failed. This email is already in use. Please try again.");
             return;
         }
