@@ -6,12 +6,15 @@ import { PasswordInput, PasswordStrengthMeter } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import zxcvbn from "zxcvbn";
+import useAuth from "@/hooks/useAuth";
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { user } = useAuth(); 
     const [password, setPassword] = useState<string>("");
     const [passwordValueStrength, setPasswordValueStrength] = useState<number>(0);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -26,8 +29,11 @@ const RegisterForm = () => {
         const email = formData.get("email") as string;
         
         const credentials: RegisterCredentials = { name, email, password };
-
         (dispatch as any)(register(credentials));
+        if (!user.email) {
+            setErrorMessage("Registration failed. This email is already in use. Please try again.");
+            return;
+        }
         event.currentTarget.reset();
         navigate("/contacts");
     };
@@ -49,11 +55,12 @@ const RegisterForm = () => {
                             </Field.Label>
                             <Input name="name" type="text"/>
                         </Field.Root>
-                        <Field.Root required>
+                        <Field.Root required invalid={errorMessage !== null}>
                             <Field.Label>
                                 Your email <Field.RequiredIndicator />
                             </Field.Label>
-                        <Input name="email" type="email"/>
+                            <Input name="email" type="email" />
+                            <Field.ErrorText>{errorMessage}</Field.ErrorText>
                         </Field.Root>
                         <Field.Root required>
                             <Field.Label>
