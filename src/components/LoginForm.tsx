@@ -14,7 +14,7 @@ const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email") as string;
@@ -22,7 +22,7 @@ const LoginForm = () => {
 
         const credentials: LoginCredentials = { email, password };
 
-        (dispatch as any)(logIn(credentials));
+        await (dispatch as any)(logIn(credentials));
 
         if (!user.email) {
             setErrorMessage("Wrong email or password. Please try again.");
