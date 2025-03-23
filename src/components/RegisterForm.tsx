@@ -29,6 +29,7 @@ const RegisterForm = () => {
 
         (dispatch as any)(register(credentials));
         event.currentTarget.reset();
+        navigate("/contacts");
     };
 
     return (
