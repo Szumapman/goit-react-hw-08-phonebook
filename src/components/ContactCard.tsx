@@ -39,7 +39,7 @@ const ContactCard = ({ name, number, id }: { name: string, number: string, id: s
                 <DeleteButtonWithConfirmation name={name} id={id} />
             </Card.Footer>
         </Card.Root>
-    );
+    )
 };
 
 export default ContactCard;
