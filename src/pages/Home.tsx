@@ -1,3 +1,4 @@
+import Logout from "@/components/NavComponents/Logout";
 import useAuth from "../hooks/useAuth";
 import { Flex, Heading, HStack, Link, Text } from "@chakra-ui/react"
 import { GrLogout } from "react-icons/gr";
@@ -18,9 +19,7 @@ const Home = () => {
                     </Heading>
                 </HStack>
                 <Text>Manage your contacts efficiently!</Text>
-                {isLoggedIn && <Link onClick={() => { navigate("/logout") }} color={"blue.600"}>
-                    <GrLogout /> Logout
-                </Link>}
+                {isLoggedIn && <Logout />}
                 {!isLoggedIn && <Text><Link onClick={() => { navigate("/register") }} color={"blue.600"}>Register</Link> or <Link onClick={() => { navigate("/login") }} color={"blue.600"}>log in</Link> to get started.</Text>}
             </Flex>
         </>
