@@ -27,6 +27,6 @@ const Contacts = () => {
             </Flex>
         </>
     );
-}
+};
 
 export default Contacts;
