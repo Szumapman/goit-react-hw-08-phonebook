@@ -8,8 +8,8 @@ const Logout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        (dispatch as any)(logOut())
+    const handleLogout = async () => {
+        await (dispatch as any)(logOut())
         navigate("/login");
     };
     return (
