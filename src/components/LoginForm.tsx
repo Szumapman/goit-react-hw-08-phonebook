@@ -4,10 +4,14 @@ import { logIn } from "../redux/auth/operations";
 import { Button, Card, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useAuth from "@/hooks/useAuth";
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { user } = useAuth();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +23,11 @@ const LoginForm = () => {
         const credentials: LoginCredentials = { email, password };
 
         (dispatch as any)(logIn(credentials));
+
+        if (!user.email) {
+            setErrorMessage("Wrong email or password. Please try again.");
+            return;
+        }
         event.currentTarget.reset();
         navigate("/contacts");
     };
@@ -40,11 +49,12 @@ const LoginForm = () => {
                             </Field.Label>
                         <Input name="email" type="email"/>
                         </Field.Root>
-                        <Field.Root required>
+                        <Field.Root required invalid={errorMessage !== null}>
                             <Field.Label>
                                 Password <Field.RequiredIndicator />
                             </Field.Label>
                             <PasswordInput name="password" type="password" />
+                            <Field.ErrorText>{errorMessage}</Field.ErrorText>
                         </Field.Root>
                     </Stack>
                 </Card.Body>
