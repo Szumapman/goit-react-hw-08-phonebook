@@ -21,7 +21,7 @@ export const ContactList = () => {
             ))}
           </Flex>
         )
-      };
+      }
     </>  
   );
 };
