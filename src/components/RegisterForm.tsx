@@ -22,14 +22,14 @@ const RegisterForm = () => {
         setPasswordValueStrength(zxcvbn(value).score);
     };
     
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const name = formData.get("name") as string;
         const email = formData.get("email") as string;
         
         const credentials: RegisterCredentials = { name, email, password };
-        (dispatch as any)(register(credentials));
+        await(dispatch as any)(register(credentials));
         if (!user.email) {
             setErrorMessage("Registration failed. This email is already in use. Please try again.");
             return;
