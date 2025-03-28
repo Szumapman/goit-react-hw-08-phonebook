@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { register } from "../redux/auth/operations";
 import { RegisterCredentials } from "../types/RegisterCredentials";
 import { Box, Button, Card, Field, Input, Stack } from "@chakra-ui/react";
@@ -6,6 +6,7 @@ import { PasswordInput, PasswordStrengthMeter } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import zxcvbn from "zxcvbn";
+import {selectError} from "@/redux/auth/selectors.ts";
 
 
 const RegisterForm = () => {
@@ -14,6 +15,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState<string>("");
     const [passwordValueStrength, setPasswordValueStrength] = useState<number>(0);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const error =  useSelector(selectError);
     
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -26,11 +28,15 @@ const RegisterForm = () => {
         const formData = new FormData(event.currentTarget);
         const name = formData.get("name") as string;
         const email = formData.get("email") as string;
-        
+
         const credentials: RegisterCredentials = { name, email, password };
         const result = await(dispatch as any)(register(credentials));
-        if (!result.email) {
-            setErrorMessage("Registration failed. This email is already in use. Please try again.");
+        if (result.error) {
+            if (error.includes("400")) {
+                setErrorMessage("Registration failed. This email is already in use. Please try again.");
+                return;
+            }
+            setErrorMessage("Something went wrong. Please try again.");
             return;
         }
         event.currentTarget.reset();
