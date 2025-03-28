@@ -1,16 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginCredentials } from "../types/LoginCredentials";
 import { logIn } from "../redux/auth/operations";
 import { Button, Card, Field, Input, Stack } from "@chakra-ui/react";
 import { PasswordInput } from "./ui/password-input";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { selectError } from "@/redux/auth/selectors";
 
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const error =  useSelector(selectError);
 
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,8 +25,12 @@ const LoginForm = () => {
 
         const result =await (dispatch as any)(logIn(credentials));
 
-        if (!result.email) {
-            setErrorMessage("Wrong email or password. Please try again.");
+        if (result.error) {
+            if (error.includes("400")) {
+                setErrorMessage("Wrong email or password. Please try again.");
+                return;
+            }
+            setErrorMessage("Something went wrong. Please try again.");
             return;
         }
         event.currentTarget.reset();
